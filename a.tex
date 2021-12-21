@@ -1,0 +1,1141 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+
+\topmargin=-1cm
+\oddsidemargin=0cm
+\textheight=24cm
+\textwidth=17cm
+
+\newtheorem{teor}{Teorema}[section]
+\newtheorem{micorol}[teor]{Corolario}
+
+\begin{document}
+
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\refname}{Bibliografía}
+
+\title{{\large Facultad de Ciencias Exactas, Ingeniería y Agrimensura\\
+Universidad Nacional de Rosario}\\
+\bigskip
+\bigskip
+{\Huge Introducción a\\}
+\includegraphics[scale=0.4]{logo_latex.eps}}
+\author{Carlos Mauricio Silva\\
+\small{e-mail: carlosmauriciosilva@gmail.com}\\
+\bigskip
+\bigskip
+%\vspace{4.5cm}
+\includegraphics[scale=0.25]{Logo_GrASoLi.eps}\\
+\includegraphics[scale=0.5]{logo_ceceia.eps}\\}
+\maketitle
+
+\newpage
+\tableofcontents
+
+\pagestyle{fancy}						%Estilo del documento.
+\lhead{\scriptsize {Introducción a \LaTeX}}	%Encabezado izquierdo.
+%\chead{\scriptsize {Encabezado central}}	%Centro del encabezado.
+\rhead{\scriptsize{Capítulo \thechapter}}	%Encabezado Derecho.
+\lfoot{\scriptsize{C. M. Silva}}				%Pie de página, izquierdo.
+\cfoot{\scriptsize{2009}}				%Centro del Pie de página 
+\rfoot{\scriptsize{P\'agina \thepage}}		%Pie de página derecho.
+\renewcommand{\footrulewidth}{0.6pt}
+
+
+\chapter{\LaTeX}
+
+\section{¿Qué es \LaTeX ?}
+\TeX $\, $  es un sofisticado programa implementado por Donald Knuth orientado a la composición de documentos científicos tales como artículos, reportes, libros, que incorporen textos y formulas matemáticas.
+
+\LaTeX $\, $  es un conjunto adecuado de comandos \TeX $\, $ preparado por Leslie Lamport.
+\LaTeX $\, $  no es un procesador de textos, es un programa que nos permite preparar automáticamente un documento de apariencia estándar y de alta calidad.
+
+En general, solo necesitamos editar texto y algunos comandos, y \LaTeX $\, $  se encarga de componer automáticamente el formato del documento en base a estándares predeterminados. A diferencia de un procesador de textos {\em tradicional}, con \LaTeX $\, $  tenemos un control más fino sobre cualquier aspecto tipográfico del documento.
+
+En los procesadores de texto habituales, conocidos como programas {\it WYSIWYG},\footnote{What you see is what you get (Lo que ves es lo que obtienes).} el autor corrige la estética interactivamente mientras ingresa el texto. Tal cosa no ocurre, por regla general, en la edición de un documento con \LaTeX , ya que uno ingresa el texto junto con los comandos de formato más el texto en modo matemático más las ordenes de inclusión de figuras y tablas, y en una instancia posterior de compilación puede observar como queda el documento final.
+
+Si bien al principio parece difícil adaptarse a escribir las instrucciones de \LaTeX, sobre todo para quienes se han acostumbrado a los procesadores {\it WYSIWYG}, una vez aprendidos los fundamentos es muy fácil trabajar de esta forma ya que presenta muchas ventajas, entre otras
+
+\begin{enumerate}
+\item Se facilita la composicion de fórmulas con un cuidado especial.
+\item El usuario solo necesita introducir instrucciones sencillas de entender con las que se indica la estructura del documento. Casi nunca hace falta preocuparse por los detalles de formato ya que los títulos, notas al pie, longitud de la línea, sangría y demás cosas que se nos ocurran siguen el estándar especificado al principio del documento.
+\item Como la inclusión de imágenes y armado de tablas se hace en la instancia de compilación tenemos una herramienta de edición muy estable ya que sólo necesita ocupar CPU en dicha instancia. Por el contrario, un editor {\it WYSIWYG} necesita tener ocupado el CPU constantemente ya que manipula imágenes y tablas permanentemente.
+\end{enumerate}
+
+Un documento de \LaTeX{} se puede escribir en cualquier editor de texto plano (sin formato), y habitualmente se guarda con extensión ``.tex''. Cuando deseemos ver como queda nuestro documento, lo compilaremos. Al finalizar el proceso de compilación obtendremos algunos archivos de salida entre los cuales encontraremos un archivo ``.dvi'' o un ``.pdf'' según le hayamos indicado a nuestro compilador. Existen dos formas de compilar nuestro documento. Una es escribiendo en una consola (DOS en Windows) el comando
+\begin{verbatim}
+latex archivo.tex
+\end{verbatim}
+que nos devuelve un archivo {\it dvi} o bien, para obtener un {\it pdf}
+\begin{verbatim}
+pdflatex archivo.tex
+\end{verbatim}
+
+La otra forma de compilar, y la más agradable, es utilizar un determinado comando en el editor de \LaTeX{} diseñado para tal fin. Habitualmente, esto consiste en apretar un botón y luego nuestro editor llamará al compilador que, felizmente, ya sabe lo que tiene que hacer. Un editor de \LaTeX{} es un programa que permite al usuario tener una experiencia más amigable con este sistema de edición. Muchos de ellos poseen atajos para escribir comandos en nuestro documento y también reconocen la sintaxis propia del lenguaje.  En el Apéndice A se habla un poco más sobre estos editores.
+
+\section{Preparación de documentos con \LaTeX}
+\subsection{Estructura básica de un documento}
+Un documento básico en \LaTeX{} se compone de dos partes: el preámbulo del documento y el cuerpo del mismo.
+Al inicio del documento se debe especificar la clase de documento, los paquetes necesarios y lo relativo al ajuste de las páginas. Esta parte es el preámbulo. Nada de lo que pongamos en él aparecerá en el documento que se imprime al final.
+En el cuerpo se escribe el texto (normal y matemático) del documento en sí y se especifica la inserción de imágenes, es decir, el cuerpo es la parte que aparecerá impresa como producto final.
+
+La forma básica del archivo ``.tex'' (que podríamos llamar código fuente) tiene el siguiente aspecto:
+\begin{verbatim}
+\documentclass[opciones]{clase}
+
+Esto es el preámbulo
+
+\begin{document}
+
+Esto es el cuerpo del documento
+
+\end{document}
+
+\end{verbatim}
+
+Para comenzar a escribir ahora y no desanimarnos con las distintas opciones que existen, usaremos el preámbulo
+\begin{verbatim}
+\documentclass[a4paper, 12pt]{article}
+\end{verbatim}
+
+\subsection{Espaciado y comentarios}
+Los caracteres ``invisibles'', como el espacio en blanco, el tabulador y el final de línea, son tratados por \LaTeX{} como signos de espacio propiamente dichos. Varios espacios seguidos se tratan como un espacio en blanco. Generalmente, un espacio en blanco al comienzo de una línea se ignora, y varios renglones en blanco se tratan como un único renglón en blanco.
+
+Un renglón en blanco entre dos líneas de texto determinan el final de un párrafo. Varias líneas en blanco se tratan como una sola línea en blanco.
+
+Un caracter ``\%'' en nuestro código fuente es interpretado como el inicio de un comentario. Todo lo que esté en una línea a partir de dicho caracter no aparecerá en el documento final.
+
+\subsection{Caracteres especiales}
+Como podrían adivinar, algunos caracteres están reservados para que cumplan alguna función, por eso no se pueden obtener digitándolos directamente como cualquier letra. El hacerlo puede producir algún error de compilación, puede pasar que el caracter sea ignorado. En las siguientes dos tablas se especifica el uso de algunos caracteres y el comando que
+se debe digitar para imprimirlos.
+
+\begin{minipage}{7.5cm}
+\begin{tabular}{c l}
+\verb@\@&  caracter inicial de comando\\
+\verb@{}@& abre y cierra bloque de código\\
+\verb@ $ @&  abre y cierra el modo matemático\\    %$
+\verb@&@&  tabulador (en tablas y matrices)\\
+\verb@#@&  señala parámetro en las macros\\
+\verb@_^@& para exponentes y subíndices\\
+\verb@~@&  para evitar cortes de renglón\\
+\verb@%@&  para comentarios\\
+\end{tabular}
+
+\end{minipage}
+\    \
+\hfill \begin{minipage}{7.5cm}
+\begin{tabular}{|c|l|}
+\hline
+Caracter&   Comando\\
+\hline
+$\backslash$&        \verb@$\backslash$@\\
+$\{$, $\}$&	\verb@$\{$, $\}$@\\
+\$&	\verb@\$@\\
+\&&        \verb@\&@\\
+\_ ,\^&	\verb@\_ , \^{}@\\
+\#&	\verb@\#@\\
+\~{}&	\verb@\~{}@\\
+{}   \%{} &	\verb@\%@\\
+\hline
+\end{tabular}
+
+\end{minipage}
+
+Además de estos caracteres especiales, hay ciertos caracteres que \LaTeX{} no entenderá ya que el idioma por defecto es el inglés. Como conscuencia dichos caracteres nos darán un error de compilación. Para poder escribirlos deberíamos poner
+\begin{center}
+\begin{tabular}{|c|c||c|c|}
+\hline
+Comando&	Símbolo&	Comando& Símbolo\\
+\hline
+\verb@\'a@&	\'a&	\verb@?`@&	¿\\
+\verb@\'e@&	\'e&	\verb@!`@&	¡\\
+\verb@\'i@&	\'i&	\verb@`` . ''@&	``{} .{} ''\\
+\verb@\'o@&	\'o&	\verb@` . '@&	`{} .{} '\\
+\verb@\'u@&	\'u&	\verb@\~n@&	ñ\\
+\hline
+\end{tabular}
+\end{center}
+
+Para salvar esta dificultad idiomática, existe una librería que viene con \LaTeX{} cuya inclusión se hace mediante la instrucción
+\begin{verbatim}
+\usepackage[utf8]{inputenc} % Caracteres con acentos.
+\end{verbatim}
+colocado en el preámbulo. Solo las comillas deberán seguir escribiéndose como está en la tabla anterior.
+
+Otro problema que tiene \LaTeX{} con el idioma es que todos los títulos y epígrafes por defecto están en inglés. Asique, por ejemplo, en lugar de {\bf Capítulo} escribirá {\bf Chapter}. La forma más fácil de solucionar este inconveniente es incluir la librería babel en su idioma español:
+\begin{verbatim}
+\usepackage[spanish]{babel} % Soporte en español.
+\end{verbatim}
+
+Hay determinados títulos que pone la librería babel que pueden no gustarnos. Así cuando en lugar de ``Tabla'' aparece ``Cuadro'', lo cual puede ser menos apropiado, o cuando en lugar de ``Referencias'' queremos que diga ``Bibliografía'' podemos solucionarlo escribiendo
+\begin{verbatim}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\refname}{Bibliografía}
+\end{verbatim}
+
+\section{Organización del documento}
+\subsection{Capítulos y secciones}
+Para ayudar al lector a orientarse en su documento, debería dividirlo en capítulos, secciones y subsecciones. \LaTeX{} lo permite mediante órdenes especiales que toman el título de la sección como argumento. Deben usarse en el orden correcto para evitar ``misteriosos'' errores de compilación.
+
+Las siguientes órdenes de sección están disponibles para la clase article:
+\begin{verbatim}
+\section{...}
+\subsection{...}
+\subsubsection{...}
+\paragraph{...}
+\subparagraph{...}
+\end{verbatim}
+
+Si quiere dividir su documento en partes sin influir en la numeración de secciones o capítulos puede usar  \verb@\part{...}@.
+
+Cuando trabaje con las clases report o book, estará disponible una orden
+de sección adicional
+\begin{verbatim}
+\chapter{...}
+\end{verbatim}
+
+Como la clase article no entiende de capítulos, es muy fácil añadir artículos como capítulos a un libro. El espacio entre secciones, la numeración y el tamaño de fuente de los títulos quedará correctamente establecido por \LaTeX{}.
+
+La instrucción \verb@\tableofcontents@ hace que \LaTeX{} construya un índice general en el lugar del documento donde se ejecuta.
+
+La instrucción \verb@\appendix@ no lleva argumento y hace que luego de ésta, todas las secciones se etiqueten con letras en lugar de números.
+
+Un detalle que a veces puede ser útil es que cada instrucción de sección tiene una versión ``asterisco''. Así, la instrucción \verb@\section*{...}@ genera una sección no numerada cuyo encabezado no aparecerá en el índice general.
+
+\subsection{Título general}
+\subsubsection{Forma tradicional}
+El título de todo el documento se define con la orden \verb@\maketitle@. Antes de ella tenemos que decirle qué queremos que diga el título. Para ello tenemos las instrucciones
+\verb@\title{...}@, \verb@\author{...}@ y opcionalmente \verb@\date{...}@
+
+Un ejemplo de título sería:
+\begin{verbatim}
+\title{Introducción a \LaTeX}
+\author{Carlos Mauricio Silva\footnote{E-mail: carlosmauriciosilva@gmail.com}}
+\date{\today}
+\maketitle
+\end{verbatim}
+La orden \verb@\footnote{Esto es una nota al pie}@ produce una nota al pie\footnote{Esto es una nota al pie} citada justo en el lugar donde se incluyó.
+
+\paragraph{El Resumen}
+El resumen puede indicarse mediante un ambiente
+\begin{verbatim}
+\begin{abstract}
+Aquí escribimos el resumen de nuestro informe
+\end{abstract}
+\end{verbatim}
+
+La instrucción \verb@\newpage@ le indica a \LaTeX{} que debe empezar una página nueva. Puede ponerse en cualquier lugar del texto.
+
+\subsubsection{Forma personalizada}
+Si bien dentro del argumento del título se puede cambiar el formato, también podemos elegir fabricar nuestra propia carátula con la alineación y el tipo de letra que deseamos. En esto hay que ser muy cuidadoso. No queremos tener de carátula un cocoliche sino algo relativamente ordenado. 
+La forma más personalizada de incluir títulos es prescindir de \verb@\maketitle@. El ambiente \verb@titlepage@ nos da la posibilidad de escribir lo que querramos y obtener en la compilación una página de carátula sin numeración. No entraremos en detalle en dicho ambiente. Aquí podríamos aprender algo sobre tipos y tamaños de letras.
+
+\paragraph{Tipo de letra}
+Para cambiar el tipo de letra se pone \verb@{\tipo texto...}@. Por ejemplo, para escribir en negrita se pone \verb@{\bf texto....}@.
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Comando&	Produce\\
+\hline
+\hline
+\verb@{\rm Roman}@&	{\rm     Roman}\\
+\verb@{\em Enfático}@&	{\em   Enfático}\\
+\verb@{\bf Negrita}@&	{\bf Negrita}\\
+\verb@{\it Itálica}@&	{\it  Itálica}\\
+\verb@{\sl Slanted}@&	{\sl Slanted}\\
+\verb@{\sf Sans Serif}@&	 {\sc Sans Serif}\\
+\verb@{\sc Small Caps}@&	{\sc Small Caps}\\
+\verb@{\tt Typewriter}@& {\tt Typewriter}\\
+\verb@\underline{ Subrayado }@&  \underline{Subrayado}\\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Tamaño de letra} 
+El tamaño de letra se puede ajustar mediante los siguientes comandos.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Comando&	Produce\\
+\hline
+\hline
+\verb@{\tiny           Tiny}@& {\tiny           Tiny}\\
+\verb@{\scriptsize   Script}@&{\scriptsize   Script}\\
+\verb@{\footnotesize   Foot}@&{\footnotesize   Foot}\\
+\verb@{\small         Small}@& {\small         Small}\\
+\verb@{\normalsize   Normal}@&{\normalsize   Normal}\\
+\verb@{\large         large}@&{\large         large}\\
+\verb@{\Large         Large}@&{\Large         Large}\\
+\verb@{\huge           huge}@&{\huge           huge}\\
+\verb@{\Huge           Huge}@&{\Huge           Huge}\\
+\hline
+\end{tabular}
+\end{center}
+
+Podemos combinar tipos y tamaños de letras entre si, por ejemplo, si escribimos\\
+\verb@{\large \bf `Ejemplo'}@ produce `Ejemplo'. Observemos el orden: primero el tamaño y luego la fuente.
+
+Además podemos darle a nuestro texto distinta alineación. Los entornos flushleft y flushright generan párrafos alineados a la izquierda o a la derecha respectivamente. El entorno center genera texto centrado. Si no indicamos mediante \verb@\\@ los saltos de línea, \LaTeX{} los determinará automáticamente. Sin embargo estas herramientas hacen que se pierda el justificado automático.
+
+El uso de estos ambientes sería así:
+
+\bigskip
+\begin{minipage}{6.5cm}
+\begin{verbatim}
+\begin{flushright}
+Texto alineado\\a la derecha.
+\LaTeX{} no trata de
+justificar las líneas.\\
+\end{flushright}
+\end{verbatim}
+\end{minipage}
+\    \
+\hfill \begin{minipage}{6.5cm}
+\begin{flushright}
+Texto alineado\\a la derecha.
+\LaTeX{} no trata de
+justificar las líneas.\\
+\end{flushright}
+\end{minipage}
+\bigskip
+
+\section{Ajuste de márgenes}
+Probablemente el tamaño de los márgenes por defecto no sea de su agrado. Podemos mejorar esto mediante las instrucciones
+\begin{verbatim}
+\topmargin=-1cm       %Margen superior (3cm por defecto)
+\oddsidemargin=0cm %Margen izquierdo (4.5cm por defecto,
+                  %con esta instrucción queda a 2,5cm.
+\textheight=24cm      %Alto del texto (19cm por defecto)
+\textwidth=17cm        %Ancho del texto (14cm por defecto)
+\end{verbatim}
+que se escriben en el preámbulo. Tenga en cuenta que al ajustar los márgenes se debe considerar la habilidad de su impresora para imprimir en las zonas de la hoja que usted le está pidiendo. De lo contrario podría ser necesario escalar su documento antes de imprimirlo.
+
+Hasta aquí hemos aprendido lo más elemental del trabajo con \LaTeX. En el próximo capítulo aprenderemos lo más jugoso de este sistema que es el texto en modo matemático, y la inserción de tablas y figuras. Si usted se siente seguro con lo que sabe de esto talvez quiera darle una ojeada al ejemplo del Apéndice B que ya contiene modo matemático. Si no, la recomendación será que trate de hacer muchos ejemplos hasta que se sienta cómodo con la escritura de \LaTeX.
+
+\chapter{Composición de fórmulas matemáticas}
+En este capítulo abordaremos la más importante de las cualidades de \TeX{}; ni más ni menos que la facilidad de componer fórmulas matemáticas. Veremos aquí solo un tratamineto muy superficial del tema, de modo que si su problema no puede resolverse con lo que aprenderá aquí puede recurrir a un sinnúmero de manuales y tutoriales\footnote{Lo cual es recomendable, aún si usted está satisfecho con lo que ha aprendido por este medio.}.
+
+\section{Generalidades}
+\subsection{Escritura de matemáticas}
+\LaTeX{} dispone de formas distintas de escribir un texto matemático. La primera de ellas es haciendo que una expresión quede en el mismo reglón que el resto del texto, en el interior del párrafo. Esto se logra mediante los comandos \verb@\(@ y \verb@\)@ o bien entre \verb@\begin{math}@ y \verb@\end{math}@. Sin embargo la forma más usual es encerrar la expresión entre signos \$. Veamos un ejemplo de todo esto.
+
+\begin{verbatim}
+Sabemos que \TeX{} se pronuncia como la sílaba griega \(\tau\epsilon\chi\).
+Sin embargo en Argentina pronunciamos la equis como tal.
+Una de las potencialidades de \LaTeX{} es escribir fórmulas en un renglón,
+como por ejemplo $f(x)=\int_a^x e¯\frac{t^2}{2}dt$.
+Con los entornos math se puede hacer el mismo efecto,
+es decir: \begin{math} 2+2=5 \end{math}{} \footnote{El error fue deliberado.}
+\end{verbatim}
+produce:
+
+\begin{center}
+\begin{tabularx}{15cm}{|X|}
+\hline
+Sabemos que \TeX{} se pronuncia igual que la sílaba griega \(\tau\epsilon\chi\). Sin embargo en Argentina pronunciamos la equis como tal. Una de las potencialidades de \LaTeX{} es escribir fórmulas en un renglón, como por ejemplo $f(x)=\int_a^x e^\frac{t^2}{2}dt$. Con los entornos math se puede hacer el mismo efecto, es decir: \begin{math} 2+2=5 \end{math}{} \protect\footnote{\protect{El error fue deliberado.}}.\\
+\hline
+\end{tabularx}
+\end{center}
+
+
+Para escribir una fórmula importante es muy útil aislarla partiendo el párrafo en el lugar en que ésta fórmula haya sido escrita. Esto se logra con los delimitadores \verb@\[@ y \verb@\]@, o entre  \verb@\begin{displaymath}@ y \verb@\end{displaymath}@, o bien entre doble signos \$.
+Un ejemplo puede ser
+
+\begin{verbatim}
+Comencemos señalando que todo el problema matemático es la resolución
+de dos ecuaciones, las ecuaciones de Maxwell para la electrostática:
+La de la divergencia $$\nabla \cdot E= \frac{\rho}{\epsilon_0},$$
+y la del rotor del campo eléctrico \[\nabla \times E=0. \]
+La segunda ecuación nos indica que podemos describir
+el campo como gradiente de un escalar:
+\begin{displaymath}
+E=-\nabla \phi.
+\end{displaymath}
+\end{verbatim}
+
+Esto se verá en el documento final como:\\
+
+\begin{tabular}{|p{15cm}|}
+\hline
+Comencemos señalando que todo el problema matemático
+es la resolución de dos ecuaciones, las ecuaciones de Maxwell
+para la electrostática:
+La de la divergencia $$\nabla \cdot E= \frac{\rho}{\epsilon_0},$$
+y la del rotor del campo eléctrico
+\[\nabla \times E=0. \]
+La segunda ecuación nos indica que podemos describir
+el campo como gradiente de un escalar:
+$$E=-\nabla \phi.$$\\
+\hline
+\end{tabular}
+\\
+
+Si deseamos que nuestras ecuaciones principales aparezcan numeradas, podemos hacer uso del entorno \verb@equation@. \LaTeX numerará automáticamente cada expresión que aparezca en este entorno. Además, si quisieramos referirnos en el texto a una ecuación numerada, podemos etiquetarla mediante \verb@\label@ con un nombre fácil de recordar. Luego podemos citarla usando \verb@\ref@. Veamos un ejemplo.
+
+
+\bigskip
+\begin{minipage}{6.5cm}
+\begin{verbatim}
+Esta es la verdadera razón por la
+cual la ecuación anterior puede
+escribirse como:
+\begin{equation}
+\label{eq:fgrav}
+F=-G \frac{mM}{r^2}
+\end{equation}
+La ecuación (\ref{eq:fgrav}) representa
+la ya conocida Ley
+de Gravitación Universal de Newton.
+\end{verbatim}
+\end{minipage}
+\    \
+\hfill \begin{minipage}{6.5cm}
+Esta es la verdadera razón por la cual la ecuación anterior
+puede escribirse como:
+\begin{equation}
+\label{eq:fgrav}
+F=-G \frac{mM}{r^2}
+\end{equation}
+La ecuación (\ref{eq:fgrav}) representa la ya conocida Ley
+de Gravitación Universal de Newton.
+\end{minipage}
+\bigskip
+
+Naturalmente existirán ciertos inconvenientes. Pero todos los que vayan apareciendo pueden ser subsanados. Veamos algunos. Puede suceder que yo quiera escribir una sumatoria o una fracción dentro de un renglón. Observe que pasa cuando escribimos:
+\begin{center}
+\begin{tabular}{l @{\hspace{2cm}}|l|}
+\cline{2-2}
+\verb@Si calculamos $\sum_{n=1}^n x^n$@& Si calculamos $\sum_{n=1}^n x^n$\\
+\cline{2-2}
+\end{tabular}
+\end{center}
+
+\LaTeX{} acomoda la fórmula al alto del texto. Para ver la ecuación en su tamaño natural podemos escribir
+\begin{center}
+\begin{tabular}{l @{\hspace{2cm}}|l|}
+\cline{2-2}
+\verb@Si calculamos $\displaystyle \sum_{n=1}^n x^n$@& Si calculamos $\displaystyle \sum_{n=1}^n x^n$\\
+\cline{2-2}
+\end{tabular}
+\end{center}
+
+Para insertar espacios en modo matemático podemos usar \verb@\,@ o \verb@\ @ (con un espacio después de la barra) o \verb@\:@ o \verb@\;@ o, \verb@\quad@ y \verb@qquad@ para espacios más grandes. También se puede usar \verb@\hspace{Xcm}@ (hay opciones para elegir...).
+
+El comando \verb@\!@ inserta un espacio negativo, es decir pega lo que estaba separado por espacios automáticos.
+
+Para que un comando afecte a varios caracteres haremos uso de las llaves \verb@{ , }@.
+
+\subsection{Ejemplos}
+\subsubsection{Potencias, subíndices y superíndices}
+Indicaremos superíndices con \verb@^@ y subíndices con \verb@_@. Así
+\begin{center}
+\begin{tabular}{c c @{\hspace{0.5cm}} c c}
+\verb@2^p@&	$2^p$&	\verb@x^{n+1}@&	$x^{n+1}$\\
+\verb@\sen^2(x)@&	$\sen^2(x)$&	\verb@a_{2n+1}@&	$a_{2n+1}$\\
+\\
+\verb@x_j^\mu@&	$x_j^\mu$&	\verb@(\nabla^2\cdot F)^2@&	$(\nabla^2\cdot F)^3$\\
+&\verb@\int_a^b\, \sum_{n=1}^m x^{2n}\, dx@&	$\displaystyle \int_a^b\, \sum_{n=1}^m x^{2n}\, dx$&\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Fracciones}
+Una forma de escribir fracciones es \verb@$a \over b$@ con lo cual obtenemos $a \over b$. Sin embargo la forma más habitual es usar
+\verb@\frac{a}{b}@. Por ejemplo:
+\bigskip
+Con \verb@$\frac{1+n}{\sqrt{2}}$@, Se obtiene $\displaystyle \frac{1+n}{\sqrt{2}}$.
+
+Otras ``fracciones'' pueden obtenerse como
+\begin{center}
+\begin{tabular}{c @{\hspace{1cm}} c}
+\verb@{{x+1 \over 3} \over x-1}@&	${{x+1 \over 3} \over x-1}$\\
+\verb@\displaystyle \left( 1+ \frac{1}{x} \right)^\frac{n+1}{n}@&	$\displaystyle \left( 1+ \frac{1}{x} \right)^\frac{n+1}{n}$\\
+\\
+\verb@{x+1 \atop x-1}@&	${x+1 \atop x-1}$\\
+\\
+\verb@{x+1 \brace x-1}@&	${x+1 \brace x-1}$\\
+\verb@{x+1 \brack x-1}@&	${x+1 \brack x-1}$\\
+\verb@\displaystyle a \choose b@&	$\displaystyle a \choose b$\\
+\\
+\verb@\displaystyle{a \stackrel{f}{\rightarrow} b}@&	$\displaystyle{a \stackrel{f}{\rightarrow} b}$\\
+\end{tabular}
+\end{center}
+
+\subsubsection{Delimitadores}
+Para ajustar los delimitadores al tamaño de una fórmula usamos \verb@\left...@ y \verb@\right...@ de la siguiente forma:
+
+\begin{center}
+\begin{tabular}{c @{\hspace{1cm}} c}
+\verb@$\displaystyle \left[{x+1 \over (x-1)^2} \right]^n$@&	$\displaystyle \left[{x+1 \over (x-1)^2} \right]^n$\\
+\verb@$\displaystyle \left\{ {n \in N \atop r \neq 1 } \right.$@&	$\displaystyle \left\{ {n \in N \atop r \neq 1 } \right.$\\
+\end{tabular}
+\end{center}
+
+Si queremos que uno de los delimitadores no aparezca (como en el segundo caso), ponemos un punto (\verb@ . @) en su lugar.
+
+\subsubsection{Acentos, llaves y barras horizontales}
+Se pueden colocar llaves tanto abajo como arriba del texto, como así también una leyenda acompañando la llave, mediante \verb@\overbrace{}^{}@ y \verb@\underbrace{}_{}@. Por ejemplo el texto
+
+\begin{verbatim}
+\[ \overbrace{(x_i-1)}^{K_i}f(x)+\underbrace{(x_i-1)}_{K_i}g(x)=K_i(f(x)+g(x)) \]
+\end{verbatim}
+produce
+\[ \overbrace{(x_i-1)}^{K_i\neq}f(x)+\underbrace{(x_i-1)}_{K_i\neq}g(x)=K_i(f(x)+g(x)) \]
+
+Mediante \verb@\overline{...}@ podemos obtener una barra horizontal sobre el texto (y con \verb@\underline{..}@ por debajo), por ejemplo, con \verb@\overline{a+bi}}@ podemos obtener $$\overline{a+bi}.$$
+
+Si usted quiere trabajar con vectores o algún otro ente matemático que requiera algún resaltado, quiza quiera probar con:
+
+\begin{center}
+\begin{tabular}{c c l c c}
+\verb@$\hat{\imath}$@&	$\hat{\imath}$&&	\verb@$\acute{p}$@&	$\acute{p}$\\
+\\
+\verb@$\bar{p}$@&	$\bar{p}$&&	\verb@$\vec{p}$@&	$\vec{p}$\\
+\end{tabular}
+\end{center}
+
+Para que algún caracter quede en negrita podemos usar varias opciones: 
+\begin{center}
+\begin{tabular}{c l}
+$\bf x+y=3$&	\verb@$\bf x+y=3$@\\
+{\boldmath $x+y=3 $}&	\verb@{\boldmath $x+y=3 $}@ (las llaves son necesarias)\\
+$a,\ b \in \mathbf{R}$& \verb@$a,\ b \in \mathbf{R}$@\\
+\end{tabular}
+\end{center}
+
+Quizás en el último caso un matemático prefiera usar \verb@$\mathbb{R}$@, habiendo incluido en el preámbulo la instrucción \verb@\usepackage{amssymb}@, con lo cual obtendrá $\mathbb{R}$.
+
+\subsubsection{Texto en el interior del modo matemático}
+Para que en el interior del modo matemático halla texto es necesario aislarlo para que no se confunda con los símbolos matemáticos.
+Veamos un ejemplo:
+\begin{center}
+\begin{tabular}{l l}
+$\delta(x) \neq 0 \; \mbox{ siempre que }\; x\neq 0$&	\verb@$\delta(x) \neq 0 \; \mbox{ siempre que }\; x\neq 0$@\\
+\end{tabular}
+\end{center}
+
+\subsection{Matrices y alineación}
+Para insertar cualquier arreglo o matriz podemos usar el entorno array. Para ello debemos tener en cuenta
+\begin{enumerate}
+\item Los delimitadores, por ejemplo \verb@\left[@ y \verb@\right]@
+\item Inicio del ``array'' y el número y alineación de las columnas (centrado (c), alineado a la izquierda (l) o a la derecha (r)), con 3 columnas: \verb@\begin{array}{lcr}@
+\item El símbolo \verb@&@ significa cambio de columna. \verb@\\@ indica una nueva fila.
+\item \verb@\end{array}@ Indica el fin del arreglo
+\end{enumerate}
+
+Por ejemplo:
+
+\begin{minipage}{6.5cm}
+\begin{verbatim}
+\begin{displaymath}
+\mathbf{X} =
+\left( \begin{array}{cccc}
+x_{11} & x_{12} & x_{13} & \ldots \\
+x_{21} & x_{22} & x_{23} & \ldots \\
+\vdots & \vdots & \vdots & \ddots
+\end{array} \right)
+\end{displaymath}
+\end{verbatim}
+\end{minipage}
+\    \
+\hfill \begin{minipage}{6.5cm}
+\begin{displaymath}
+\mathbf{X} =
+\left( \begin{array}{cccc}
+x_{11} & x_{12} & x_{13} & \ldots \\
+x_{21} & x_{22} & x_{23} & \ldots \\
+\vdots & \vdots & \vdots & \ddots
+\end{array} \right)
+\end{displaymath}
+\end{minipage}
+\bigskip
+\bigskip
+Para alinear ecuaciones o una serie de pasos se puede usar el entorno eqnarray. Este comando construye una matriz de 3 columnas. Si se quiere que cada uno de los pasos aparezca numerado se utiliza \verb@\begin{eqnarray}@ ... \verb@\end{eqnarray}@.
+
+Usando \verb@\begin{eqnarray*} ... \end{eqnarray*}@ ningún renglón saldrá numerado. El texto:
+
+\begin{verbatim}
+\begin{eqnarray*}
+y=\sqrt[n]{x} & \Longrightarrow & y^n=x \\
+              & \Longrightarrow & nLog\,y=Log\,x \\
+              & \Longrightarrow & Log\sqrt[n]{x}={1 \over n}Log \,x
+\end{eqnarray*}
+\end{verbatim}
+
+produce
+\begin{eqnarray*}
+y=\sqrt[n]{x} & \Longrightarrow & y^n=x \\
+              & \Longrightarrow & nLog\,y=Log\,x \\
+              & \Longrightarrow & Log\sqrt[n]{x}={1 \over n}Log \,x
+\end{eqnarray*}
+
+\chapter{Tablas y Figuras}
+\section{Tablas}
+Una tabla funciona en forma muy similar a una matriz, excepto que en la tabla podemos poner lineas verticales y horizontales, elegir el espaciado y poner matemáticas y texto. El modo matemático debe especificarse en la tabla.
+
+\begin{itemize}
+\item Las lineas verticales se especifican con \verb@|@ o con \verb@||@ en el indicador de alineamiento de columnas.
+\item Una linea horizontal de la longitud de la tabla se indica con \verb@\hline@.
+\item Con \verb@\cline{i-j}@ especificamos una línea de la columna $i$ a la columna $j$.
+\item Con \verb+@{...}+ le indicamos a \LaTeX que en lugar del separador de columnas habitual tiene que poner lo que está entre llaves.
+\item Con \verb@\multicolumn{n}{alineación}{...}@ le indicamos que lo que está entre las dos últimas llaves ocupa \verb@n@ columnas con la alineación exigida.
+\end{itemize}
+
+Veamos este ejemplo:
+
+\begin{verbatim}
+\begin{center}
+\begin{tabular}{|l|c|c|@{\hspace{1cm}}|r|}
+\hline
+Letra&	Primera cifra&	Incremento [\%]&	Observaciones\\
+\hline
+a&	5&	125&	$\sum a_{ij}$\\
+b&	3&	33,5&	\\
+c&	1&	54,2&	$c+1>3$\\
+d&	7&	1,03&	No se midió bien.\\
+\hline
+\end{tabular}
+\end{center}
+\end{verbatim}
+
+produce
+
+\begin{center}
+\begin{tabular}{|l|c|c|@{\hspace{1cm}}|r|}
+\hline
+Letra&	Primera cifra&	Incremento [\%]&	Observaciones\\
+\hline
+a&	5&	125&	$\sum a_{ij}$\\
+b&	3&	33,5&	\\
+c&	1&	54,2&	$c+1>3$\\
+d&	7&	1,03&	No se midió bien.\\
+\hline
+\end{tabular}
+
+Además de \verb@c@, \verb@l@ y \verb@r@, también está permitido poner en la tabla texto justificado de un ancho \verb@X@ personalizado, lo cual se hace con \verb@p{Xcm}@. Es importante no olvidarse de cerrar la fila con \verb@\\@.
+
+\end{center}
+\section{Imágenes}
+Lo primero que se debe hacer es poner en el preámbulo las instrucciones que habilitan el uso de los comandos de inserción:
+\begin{verbatim}
+\usepackage{graphicx}
+\end{verbatim}
+
+Para insertar gráficos se usa la instrucción \verb@\includegraphics{...}@.
+Algunos modificadores pueden ser:
+\begin{itemize}
+\item \verb@scale=0.5@: Para escalar el gráfico al 50\% del tamaño original
+\item \verb@angle=45@: Rota el gráfico 45º.
+\item \verb@width=\textwidth@ estira o comprime al ancho del texto.
+\end{itemize}
+
+Usualmente en \LaTeX{} se trabaja con imágenes en formato {\sc PostScript} (.ps) y {\sc PostScript} Encapsulado (.eps). Sin embargo también se puede trabajar con otros formatos como JPG, PNG, BMP.
+
+En el caso de gráficos bmp, png, jpg, etc. hay que incluir además en el preámbulo la instrucción
+\begin{verbatim}
+\DeclareGraphicsExtensions{.bmp,.png,.jpg}
+\end{verbatim}
+
+Con la instrucción
+\begin{verbatim}
+\includegraphics[angle=45,scale=0.45]{carrito.eps}
+\end{verbatim}
+donde \verb@carrito.eps@ es una imágen que está en la misma carpeta que el archivo ``.tex'' obtenemos:
+
+\includegraphics[angle=45,scale=0.45]{carrito.eps}
+
+Conviene poner la imágen en un ambiente flotante como veremos más adelante.
+
+Insertar una imágen BMP u otro formato es más complicado, ya que requiere algunos argumentos adicionales (siempre compilando a {\em dvi} con \LaTeX):
+\begin{verbatim}
+\includegraphics[0cm,0cm][3.62cm,4cm]{ejemplo1.bmp}
+\end{verbatim}
+
+El primer argumento opcional (los dos primeros valores) indica el espacio que se deja a la izquierda de la imagen y arriba, el segundo argumento opcional indica el ancho y el alto de la imagen (en postcript no hacía falta poner estos argumentos porque el gráfico internamente tiene estos datos).
+
+La impresión es mucho más fina para un gráfico en PostScript o en PostScript Encapsulado (¡de hecho se inventó para eso!), y es el formato más adecuado para documentos científicos. Las rotaciones y escalamientos no suelen andar bien en los formatos JPG o BMP, ya que estos trabajan con pixeles de una forma muy distinta a como lo hace el formato preferido de \LaTeX{}.
+
+\noindent{\bf ATENCIÓN:} Si compilamos en {\em pdf}, no podemos poner gráficos EPS ni PS. tendremos que convertirlos a pdf. Si tenemos GhostScript instalado (lo cual es bastante probable si hemos instalado \LaTeX) podemos convertir un grafico EPS o un PS a PDF mediante los comandos de consola (DOS en Windows):
+
+\begin{verbatim}
+epstopdf carrito.eps
+ps2pdf archivo.ps
+\end{verbatim}
+
+Puede suceder que al compilar aparezca el error:
+\begin{verbatim}
+Error: Cannot determine size of graphic (no BoundingBox)
+\end{verbatim}
+
+Esto suele suceder cuando no se han guardado los bordes en la imágen. Debe intentar guardar la imágen con los bordes en el programa que fue creada, o en última instancia, convertirla a EPS (que es lo que debió hacer desde un principio ;) ). Existen muchos programas que pueden exportar imágenes a este formato. {\sf The Gimp}, {\sf ImageMagick}, {\sf Dia}, {\sf Xfig}, {\sf Gnuplot} son solo algunos de los que permiten esto, y son de software libre.
+
+Existe también una forma de generar gráficos con código \LaTeX{}, pero está más allá del alcance de este texto. Hoy en día, es posible generar este código directamente con un programa gráfico como {\sf LaTeXDraw}, el cual es la opción más recomendable.
+
+\subsection{Tablas y figuras flotantes}
+Un objeto (un gráfico o una tabla) debe aparecer en el lugar más cercano al texto que hace referencia a él. Al ir haciendo modificaciones en el texto, los objetos pueden desplazarse de manera inapropiada, por ejemplo pudiendo dividirse en dos páginas, lo cual no resulta nada agradable\footnote{Si no me cree haga la prueba. Pueden ayudarlo los espacios verticales ;)}.
+\LaTeX{} resuelve este problema manipulando las figuras como objetos flotantes en el documento.
+
+\LaTeX{} nos permite usar el ambiente \verb@table@ para poner tablas flotantes, y \verb@figure@ para las figuras. Un ambiente para figuras flotantes nos permite además poner un epígrafe y una etiqueta que después podemos citar. un ejemplo de tabla flotante se obtiene como sigue: 
+
+\begin{verbatim}
+\begin{table}[!h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & $i$ [mA] & $K\Omega$ \\
+\hline
+1   &2,00     &2,5\\
+2   &1,60     &3.125\\
+3   &2,43	   &2.06\\
+4   &1,44     &3.47 \\
+\hline
+\end{tabular}
+\label{tab:resist}
+\caption{Resistencias calculadas teóricamente para $V_R=5V}
+\end{table}
+\end{verbatim}
+
+Y puede verse en este documento como Tabla 3.1.
+%Ojo que hice trampa!!
+(La cita se ha hecho con el comando \verb@\ref{tab:resist}@ de acuerdo a la etiqueta que se indicó con \verb@\label{tab:resist}@).
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+$n$ & $i$ [mA] & $K\Omega$ \\
+\hline
+1   &2,00     &2,5\\
+2   &1,60     &3.125\\
+3   &2,43	   &2.06\\
+4   &1,44     &3.47 \\
+\hline
+\end{tabular}
+\label{tab:resist}
+\caption{Resistencias calculadas teóricamente para $V_R=5V$}
+\end{table}
+
+En el ejemplo, \verb@[!ht]@ significa que le estamos pidiendo a \LaTeX{} que haga todo lo posible para poner el objeto en el lugar donde está el ambiente, pero si no puede (porque la imágen no entra, por ejemplo), queda pospuesto en la cola de objetos. Al empezar una nueva página, \LaTeX{} tratará de colocar el primer objeto de la cola de acuerdo a su modificador (excepto `h' que ya es imposible). El modificador por defecto es \verb@[htbp]@. Estos modificadores significan:
+\begin{center}
+\begin{tabular}{l p{5cm}}
+Signo&	Permiso para deslizar...\\ \hline
+h&	aquí (here) en el mismo lugar del texto donde aparece. Útil sobre todo para elementos pequeños.\\
+t&	arriba (top) en la página.\\
+b&	abajo (bottom) en la página.\\
+p&	en una página especial sólo con deslizantes.\\
+!&	sin considerar la mayoría de los parámetros internos, que podrían impedir su colocación.\\
+\end{tabular}
+\end{center}
+
+Si \LaTeX{} no coloca los elementos flotantes donde uno esperaba es porque hay otro atascado en la cola de tablas o en la de figuras.  En ciertas circunstancias podrá requerirse el uso de la orden
+\verb@\clearpage@ que manda a \LaTeX{} a colocar todos los flotantes que quedan en las colas y luego comenzar una página nueva.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.4]{carrito.eps}
+\caption{\label{fig:carrito} Carrito de masa $M$ unido a un resorte.}
+\end{figure}
+
+El ejemplo siguiente muestra otra vez a nuestro carrito pero en la Figura~\ref{fig:carrito} flotante: 
+\begin{verbatim}
+\begin{figure}[!htb]
+\centering
+\includegraphics[scale=0.4]{carrito.eps}
+\caption{\label{fig:carrito} Carrito de masa $M$ unido a un resorte.}
+\end{figure}
+\end{verbatim}
+
+La instrucción \verb@\caption{...}@ como podrá ver es el lugar donde escribiremos el epígrafe y \verb+\label{...}+ es la instrucción que nos permite darle una etiqueta a la figura para facilitar las referencias en el texto.
+
+Recuerde que los comandos \verb@\newline@, \verb@\bigskip@ y \verb@\vspace{Xcm}@ pueden ayudarlo con espacios verticales si usted lo desea.
+
+\chapter{Miscelánea}
+\section{Texto a dos columnas}
+Si bien en el preámbulo podemos decirle a \LaTeX{} que queremos texto a doble columna con
+\begin{verbatim}
+\documentclass[a4paper, twocolumn, 12pt]{article}
+\end{verbatim}
+tal vez ncesitemos usar dos columnas en algún momento dentro de un documento de una columna.
+Una forma es escribiendo \verb@\twocolumn@, pero éste comando nos da texto a dos columnas en una hoja completa, es decir que no nos permite compartir una hoja entre distintos formatos de columna. Hay formas muy sencillas de hacer lo que buscamos pero requieren paquetes adicionales.
+
+Aquí veremos el ambiente \verb@minipage@, muy útil y que no requiere ningún paquete extra. La estructura es la siguiente:
+
+\begin{verbatim}
+\begin{minipage}{Xcm}
+**PRIMERA COLUMNA**
+*******************
+*******************
+*******************
+\end{minipage}
+\hfill
+\begin{minipage}{Xcm}
+**SEGUNDA COLUMNA**
+*******************
+*******************
+*******************
+\end{minipage}
+\end{verbatim}
+
+donde X es el ancho de la columna en cm. Se debe tener cuidado de no exceder el ancho de la hoja. \hfill alinea el texto a la derecha. Este ambiente es una `caja'. Puede contener cualquier otra cosa adentro. Así podemos usarlo principalmente para poner una imágen al lado del texto.
+
+\bigskip
+\noindent
+\begin{minipage}{11cm}
+En algunos documento se necesita colocar gráficos pequeños. A algunas personas no les gusta que el documento tenga espacios vacío y opinan que es más justo que las imágenes queden a un costado. Vea que bonito queda el carrito aquí al costado.
+\end{minipage}
+\hfill
+\begin{minipage}{5cm}
+\includegraphics[scale=0.3]{carrito.eps}
+\end{minipage}
+
+\bigskip
+He logrado esto con el siguiente código:
+\begin{verbatim}
+\noindent    %anula la sangría
+\begin{minipage}{11cm}
+En algunos documento se necesita colocar gráficos pequeños.
+A algunas personas no les gusta que el documento...
+\end{minipage}
+\    \ \hfill
+\begin{minipage}{5cm}
+\includegraphics[scale=0.3]{carrito.eps}
+\end{minipage}
+\end{verbatim}
+
+\section{Listas}
+Hay dos ambientes para producir listas en \LaTeX. Veamos qué hace el ambiente \verb@enumerate@\\
+
+\begin{minipage}{9cm}
+\begin{verbatim}
+\begin{enumerate}
+\item Semana
+\item[] Lunes
+\item[] Miércoles
+\item[] Viernes
+\item Sábados y Domingos
+\end{enumerate}
+\end{verbatim}
+\end{minipage}
+\    \ \hfill
+\begin{minipage}{5cm}
+\begin{enumerate}
+\item Semana
+\item[] Lunes
+\item[] Miércoles
+\item[] Viernes
+\item Sábados y Domingos
+\end{enumerate}
+\end{minipage}
+
+Mientras que con \verb@itemize@ podemos agregar algunos niveles más de enumerado:\\
+
+
+\begin{minipage}{9cm}
+\begin{verbatim}
+\begin{enumerate}
+\item Empieza el ciclo
+\item Se desarrolla
+\begin{enumerate}
+     \item Paso a.
+     \item Paso b.
+     \begin{itemize}
+           \item ouch
+	   \item vuelve
+    \end{itemize}
+\end{enumerate}
+\item {\bf Fin.}
+\end{enumerate}
+\end{verbatim}
+\end{minipage}
+\   \ \hfill
+\begin{minipage}{5cm}
+\begin{enumerate}
+\item Empieza el ciclo
+\item Se desarrolla
+\begin{enumerate}
+     \item Paso a.
+     \item Paso b.
+     \begin{itemize}
+           \item ouch
+	   \item vuelve
+    \end{itemize}
+\end{enumerate}
+\item {\bf Fin.\\}
+\end{enumerate}
+\end{minipage}
+
+\bigskip
+Los símbolos que \verb@enumerate@ pone por defecto para enumerar una lista se pueden cambiar con las instrucciones
+\begin{verbatim}
+\renewcommand{\labelenumi}{\Roman{enumi}.}
+\renewcommand{\labelenumii}{\arabic{enumii}$)$ }
+\renewcommand{\labelenumiii}{\alph{enumiii}$)$ }
+\renewcommand{\labelenumiv}{\fnsymbol{enumiv} }
+\end{verbatim}
+En este caso, indican que en el primer nivel se utilizarán números romanos en mayúscula (para ponerlos en minúscula se pone \verb@\roman{enumi}@), para el segundo nivel números arábigos, en el tercer nivel se usarán letras en minúscula (si se quieren en mayúscula se utiliza \verb@\Alph{enumiii}@) y en el cuarto nivel se utilizarán símbolos.
+Cada nivel se puede definir de acuerdo a lo que se necesite, observe que también se pueden agregar paréntesis o puntos para darle el formato. De hecho, para enumerar también se pueden poner símbolos, por ejemplo
+\begin{verbatim}
+\renewcommand{\labelenumii}{$\bullet$ }
+\end{verbatim}
+pondrá un circulo pequeño relleno en el segundo nivel.
+
+\section{El ambiente Verbatim}
+Para escribir códigos fuente de programas o cualquier otra cosa tal cual como aparece en el archivo `.tex' podemos usar el ambiente
+\verb@\begin{verbatim}...\end{verbatim}@
+
+\begin{verbatim}
+Todo esto está escrito en Verbatim. Se reproducen
+incluso los espacios. \LaTeX no corta el texto.
+
+DO i=1, imax
+         x = x * i
+END DO
+
+Los verbatim no se pueden anidar.
+\end{verbatim}
+
+\section{Abreviando comandos}
+¿Como hacemos si hay algún comando que tenemos que escribir muchas veces y no queremos hacerlo? Es muy sencillo. En el preámbulo podemos definir nuestros propios comandos de la siguiente manera:
+\begin{verbatim}
+\newcommand{\nombre}{\comando original}
+\newcommand{\nombre}[n]{\f{#1}...\h{#n}}
+\end{verbatim}
+
+\verb@\nombre@ es el nombre que deseamos ponerle al nuevo comando. En el segundo caso le decimos a \LaTeX que nuestro nuevo comando tiene más de un argumento. Puede verse un ejemplo de esto en el Apéndice B.
+Otro ejemplo podría ser 
+\newcommand{\bec}[1]{\begin{center}#1\end{center}}
+\begin{verbatim}
+\newcommand{\bec}[1]{\begin{center}#1\end{center}}
+\end{verbatim}
+
+y entonces probamos de usarlo:
+\begin{verbatim}
+\bec{Estoy probando mi nuevo comando =)}
+\end{verbatim}
+obteniendo como resultado:
+\bec{Estoy probando mi nuevo comando =)}
+
+\section{Escribiendo la Bibliografía}
+Para proyectos sencillos, se puede escribir muy facilmente la bibliografía. El ambiente para la bibilografía es
+\begin{verbatim}
+\begin{thebibliography}{99}...\end{thebibliography}.
+\end{verbatim}
+Es un ambiente parecido al de enumerate.
+En el texto uno puede hacer referencia a algún item de la bibliografía. Para hacer esto, se le puede colocar una etiqueta al item, por ejemplo:
+\begin{verbatim}
+\begin{thebibliography}{99}
+\bibitem{cer} Cervantes Saavedra, Miguel de.``El Ingenioso hidalgo
+Don Quijote de la Mancha''. Ed. Losada. 1958.
+\bibitem{twain} Twain, Mark. ``Las aventuras de Huck'' ...
+...
+\end{thebibliography}
+\end{verbatim}
+
+Entonces podemos hacer referencia a algún libro en el texto usando \verb@\cite{cer}@ o, incluso, indicando el número de página así: \verb@\cite[pp.\ 18--23]{Cer}@.
+
+Para documentos más complicados o cuestiones de referencia continua en diferentes proyectos se puede usar el paquete \verb@bibtex@.
+Su uso es algo más complicado pero no requiere mucho tiempo de aprendizaje.
+
+\section{Teoremas, Corolarios, Definiciones...}
+La construcción de teoremas y otros bloques formales está contemplada en \LaTeX. Vamos a aprender lo más indispensable.
+Debemos definir tantos teoremas como aparezcan en el texto, todo esto en el pre\'ambulo.
+\begin{verbatim}
+\newtheorem{nombre}[contador]{texto}[sección]
+\end{verbatim}
+El argumento {\it nombre} es una palabra corta usada para identificar el tipo de ``estructura'' (teorema, corolario, etc.). Con el argumento texto se define el nombre real de la estructura, que aparecerá en el documento final. Los argumentos entre corchetes son opcionales. Se usan ambos para indicar la numeración usada en la estructura. Use el argumento contador para indicar el nombre de una estructura declarada con anterioridad. La nueva estructura se numerará en la misma secuencia. El argumento sección le permite indicar una unidad de sección de la cual se tomará la numeración.
+
+Tras ejecutar la orden \newtheorem en el preámbulo, puede usar la siguiente orden dentro del documento.
+\begin{verbatim}
+\begin{nombre}[texto]
+Aquí va el teorema...
+\end{nombre}
+\end{verbatim}
+
+Por ejemplo, al declarar en el preámbulo
+\begin{verbatim}
+\newtheorem{teor}{Teorema}[section]
+\newtheorem{micorol}[teor]{Corolario}
+\end{verbatim}
+
+Podemos usarlo para escribir:
+\begin{verbatim}
+\begin{teor}[Pitágoras]
+La suma de los cuadrados de los catetos de un triángulo
+rectángulo es igual al cuadrado de la hipotenusa.
+\end{teor}
+\end{verbatim}
+
+obteniendo así:
+
+\begin{teor}[Pitágoras]
+La suma de los cuadrados de los catetos de un triángulo
+rectángulo es igual al cuadrado de la hipotenusa.
+\end{teor}
+
+Y ahora 
+\begin{verbatim}
+\begin{micorol}
+La hipotenusa de un triángulo rectángulo isósceles es
+igual a dos veces el cuadrado de un cateto.
+\end{micorol}
+\end{verbatim}
+
+Arroja como resultado:
+
+\begin{micorol}
+La hipotenusa de un triángulo rectángulo isósceles es
+igual a dos veces el cuadrado de un cateto.
+\end{micorol}
+
+\begin{thebibliography}{5}
+\bibitem{tnss} Tobías Oetiker, et. al. ``{\it The Not So Short Introducton to} \LaTeXe'' Version 4.26. 2008.
+Disponible en varios idiomas: {\sf http://www.ctan.org/tex-archive/info/lshort/}
+\bibitem{man}  Borbón, Alexander;  Mora, Walter. ``{\it \LaTeX{} Edición de Textos Científicos LaTeXtoHTML y Presentaciones Beamer}''. Instituto tecnológico de Costa Rica, 2008. Disponible en {\sf http://www.oei.es/salactsi/ManualLaTeX\_2008.pdf}
+\bibitem{keith} Keith Reckdahl. ``Using EPS Graphics in \LaTeXe{} Documents'', disponible en {\sf http://www.ctan.org/tex-archive/info/epslatex.ps}
+\bibitem{sim} Scott Pakin ``{\it The Comprehensive \LaTeX{} Symbol List}''
+Disponible en {\sf http://www.ctan.org/get/info/symbols/comprehensive/symbols-letter.pdf}
+\bibitem{tablas} Mata Botana, Raúl. ``Tablas en \LaTeX{}'' Versión 1.00. agosto del 2008.
+Disponible en: {\sf http://www.lug.fi.uba.ar/documentos/tablas/tablas.pdf}
+\end{thebibliography}
+
+\appendix
+
+\rhead{\scriptsize{Apéndice \thechapter}}	%Encabezado Derecho.
+
+\chapter{Instalación}
+\section{Instalación de \LaTeX $\, $  en Windows}
+La instalación de \LaTeX $\, $  es bastante sencilla. Nos dirigimos al sitio web de MiKTeX, y descargamos la versión que deseamos instalar. Lo más recomendable es instalar la versión básica e ir agregando los paquetes a medida que los vamos necesitando (no se preocupen, una vez instalado MiKTeX, los paquetes se instalan solos a medida que los vamos necesitando, solo tenemos que confirmar que queremos que se instalen). El instalador se puede bajar de:
+
+\begin{verbatim}
+http://miktex.org/2.9/setup
+\end{verbatim}
+
+En caso de no poseer conexión a internet en la computadora donde lo queremos instalar podemos usar la versión portable que puede hallarse en el mismo sitio web.
+
+Una vez que hemos instalado MiKTeX, podemos instalar un editor para \LaTeX $\, $  . Actualmente el mejor editor de \LaTeX $\, $  para Windows, y el que mejor se lleva con MiKTeX es TeXnicCenter. Este lo encontramos en el sitio web
+
+\begin{verbatim}
+http://www.texniccenter.org/
+\end{verbatim}
+
+En caso de haber instalado la versión básica de MiKTeX, necesitaremos habilitar la librería `babel' en español. Para ello nos dirijimos al {\it Menú Inicio/Programas/MiKTeX   2.9/Settings}. y allí seleccionamos la pestaña {\it Languaje} en donde tildaremos {\it Spanish}. Una vez aceptado, Babel se instalará en español. Ahora sí estamos en condiciones de instalar TeXnicCenter mediante el archivo ejecutable que hemos bajado de internet. Es importante {\em no invertir el orden} de instalación pues de lo contrario nuestro editor no reconocerá al compilador y no podremos obtener nuestros tan ansiados pdf's.
+
+
+\section{Instalación de \LaTeX $\, $  en GNU/Linux}
+No hay nada más sencillo. Si usamos una distribución basada en Debian, como ser Ubuntu o Mint, simplemente escribimos en una consola (con privilegios de superusuario):
+
+\begin{verbatim}
+# apt-get install texlive-latex-base texlive-latex-recommended
+\end{verbatim}
+
+Para instalar un editor tenemos varias opciones. La estadísticamente más recomendada es instalar kile:
+
+\begin{verbatim}
+# apt-get install kile kile-i18n-es
+\end{verbatim}
+
+Otra opcion es instalar el paquete Winefish, aunque no es muy recomendable por la escasa documentación existente. También, como ya se ha comentado, podemos prescindir de editores y compilar directamente en consola, aun cuando esto no sea muy agradable.
+
+Algunos editores de texto plano para linux son SciTe (muy recomendado, reconoce muchisimos lenguajes y funciona sobre un entorno gráfico), Vi, Nano, Emacs y Jed.
+
+Por último, estos paquetes también se pueden instalar utilizando algún gestor de paquetes más grafico como synaptic.
+
+\noindent{\bf Cómo consultar dudas o reportar errores de este documento}
+
+Básicamente, usted puede escribirme  (¡No dude en hacerlo!) un correo electrónico a la dirección que figura en la portada. Si es una duda, trate de especificar la mayor cantidad de datos posibles para que me sea más fácil ayudarlo, como ser sistema operativo, versión del compilador, paquetes que está usando, etcétera. 
+
+Es muy útil recordar también que en la web existen numerosos motores de búsqueda tales como {\sf Yahoo!} o {\bf Google} que pueden ayudarle en todo momento.
+
+\chapter{Un ejemplo con texto en modo matemático}
+\begin{verbatim}
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\topmargin=-1cm
+\oddsidemargin=0cm
+\textheight=24cm
+\textwidth=17cm
+
+\newcommand{\dire}[2]{\footnote{e-mail: {#1}. Institución: {#2}}}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+\title{{\bfseries Aproximación de funciones por polinomios:}\\
+Polinomio de Taylor.}
+\author{Carlos Mauricio Silva \dire{carlosmauriciosilva@gmail.com}
+{Facultad de Ciencias Exactas, Ingeniería. y Agrimensura}}
+\date{\normalsize{Febrero de 2008}}
+\maketitle
+
+\begin{abstract}
+Se explica como se origina un polinomio de Taylor, y como se obtiene su error.
+\end{abstract}
+
+\section{Polinomio de Taylor}
+Para aproximar el valor de una función en un punto utilizamos un
+polinomio de Taylor.
+
+Estos polinomios se definen como
+\begin{equation}
+\label{eq:definicion}
+T_{n}\left(f,a\right)\!\left(x\right)=
+\sum_{k=0}^n\frac{f^{\left(k\right)}\!(a)}{k!}\cdot x^k
+\end{equation}
+donde $a$ es el punto alrededor del cual engendramos el polinomio
+y $n$ es el grado del polinomio.
+
+Esta definición surge de buscar un polinomio que cumpla las $n+1$
+condiciones: $$f^{(k)}(a)=T_n^{(k)}(a)\hspace{20mm}k=1,\ldots,n$$
+En el caso particular en el que el polinomio se engendra en el punto
+$a=0$ obtendremos la fórmula
+\begin{equation}
+\label{eq:mclaurin}
+T_{n}\left(f,0\right)\!\left(x\right)=
+\sum_{k=0}^n\frac{f^{\left(k\right)}\!(0)}{k!}\cdot x^k
+\end{equation}
+
+\section {Error en la fórmula de Taylor.}
+Para saber cuan buena es la aproximación que nos dan estos polinomios
+calculamos su error, que notaremos
+$R_{n}\left(f,a\right)\!\left(x\right)$.
+Para calcular este resto conocemos dos formas:
+la forma integral y la forma de Lagrange.
+
+\noindent{Forma Integral del resto:}
+\begin{equation}
+\label{eq:integral}
+R_{n}\left(f,a\right)\!\left(x\right)=
+\frac1{n!} \int_a^x\left(x-t\right)f^{\left(n+1\right)}\!(t)\ dt
+\end{equation}
+
+\noindent{Forma de Lagrange del Resto:}
+\begin{equation}
+\label{eq:lagrange}
+R_{n}\left(f,a\right)\!\left(x\right)=
+\frac1{(n+1)!} f^{\left(n+1\right)}\!(\theta\!\cdot\!(x-a))(x-a)^{n+1}
+\end{equation}
+donde $\theta$ es un número real entre $0$ y $1$.
+
+Volviendo al caso particular en el que $a=0$ veremos simplificada
+la expresión \ref{eq:lagrange}, teniendo ahora la forma:
+$$R_{n}\left(f,0\right)\!\left(x\right)=
+\frac1{(n+1)!} f^{\left(n+1\right)}\!(\theta x)x^{n+1}$$
+
+\end{document} 
+\end{verbatim}
+
+\chapter{Tablas de Símbolos Matemáticos Frecuentes}
+
+\input{C.tex}
+
+\end{document}

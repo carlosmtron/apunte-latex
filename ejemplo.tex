@@ -1,0 +1,78 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\topmargin=-1cm
+\oddsidemargin=0cm
+\textheight=24cm
+\textwidth=17cm
+
+\newcommand{\dire}[2]{\footnote{e-mail: {#1}. Institución: {#2}}}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+\title{{\bfseries Aproximación de funciones por polinomios:}\\
+Polinomio de Taylor.}
+\author{Carlos Mauricio Silva \dire{carlosmauriciosilva@gmail.com}
+{Facultad de Ciencias Exactas, Ingeniería. y Agrimensura}}
+\date{\normalsize{Febrero de 2008}}
+\maketitle
+
+\begin{abstract}
+Se explica como se origina un polinomio de Taylor, y como se obtiene su error.
+\end{abstract}
+
+\section{Polinomio de Taylor}
+Para aproximar el valor de una función en un punto utilizamos un
+polinomio de Taylor.
+
+Estos polinomios se definen como
+\begin{equation}
+\label{eq:definicion}
+T_{n}\left(f,a\right)\!\left(x\right)=
+\sum_{k=0}^n\frac{f^{\left(k\right)}\!(a)}{k!}\cdot x^k
+\end{equation}
+donde $a$ es el punto alrededor del cual engendramos el polinomio
+y $n$ es el grado del polinomio.
+
+Esta definición surge de buscar un polinomio que cumpla las $n+1$
+condiciones: $$f^{(k)}(a)=T_n^{(k)}(a)\hspace{20mm}k=1,\ldots,n$$
+En el caso particular en el que el polinomio se engendra en el punto
+$a=0$ obtendremos la fórmula
+\begin{equation}
+\label{eq:mclaurin}
+T_{n}\left(f,0\right)\!\left(x\right)=
+\sum_{k=0}^n\frac{f^{\left(k\right)}\!(0)}{k!}\cdot x^k
+\end{equation}
+
+\section {Error en la fórmula de Taylor.}
+Para saber cuan buena es la aproximación que nos dan estos polinomios
+calculamos su error, que notaremos
+$R_{n}\left(f,a\right)\!\left(x\right)$.
+Para calcular este resto conocemos dos formas:
+la forma integral y la forma de Lagrange.
+
+\noindent{Forma Integral del resto:}
+\begin{equation}
+\label{eq:integral}
+R_{n}\left(f,a\right)\!\left(x\right)=
+\frac1{n!} \int_a^x\left(x-t\right)f^{\left(n+1\right)}\!(t)\ dt
+\end{equation}
+
+\noindent{Forma de Lagrange del Resto:}
+\begin{equation}
+\label{eq:lagrange}
+R_{n}\left(f,a\right)\!\left(x\right)=
+\frac1{(n+1)!} f^{\left(n+1\right)}\!(\theta\!\cdot\!(x-a))(x-a)^{n+1}
+\end{equation}
+donde $\theta$ es un número real entre $0$ y $1$.
+
+Volviendo al caso particular en el que $a=0$ veremos simplificada
+la expresión \ref{eq:lagrange}, teniendo ahora la forma:
+$$R_{n}\left(f,0\right)\!\left(x\right)=
+\frac1{(n+1)!} f^{\left(n+1\right)}\!(\theta x)x^{n+1}$$
+
+\end{document}
